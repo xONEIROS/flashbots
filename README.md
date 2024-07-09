@@ -51,8 +51,8 @@ pip3 install web3 requests schedule
 ابتدا با `git` مخزن گیت‌هاب را کلون کنید. (فرض می‌کنیم مخزن شما در آدرس `https://github.com/YOUR_GITHUB_REPO` قرار دارد):
 
 ```bash
-git clone https://github.com/YOUR_GITHUB_REPO
-cd YOUR_GITHUB_REPO
+git clone https://github.com/xONEIROS/flashbots.git
+cd flashbots
 ```
 
 ### مرحله 4: جایگزینی موارد مورد نیاز
@@ -82,13 +82,13 @@ ifttt_key = 'YOUR_IFTTT_KEY'
 ابتدا اسکرین را باز کنید:
 
 ```bash
-screen -S auto_withdrawal_bot
+screen -S flashbots
 ```
 
 سپس اسکریپت را اجرا کنید:
 
 ```bash
-python3 auto_withdrawal_bot.py
+python3 flashbots.py
 ```
 
 برای خارج شدن از اسکرین بدون بستن آن:
@@ -100,7 +100,7 @@ Ctrl + A سپس D
 برای برگشت به اسکرین:
 
 ```bash
-screen -r auto_withdrawal_bot
+screen -r flashbots
 ```
 
 ## کد
@@ -244,7 +244,7 @@ while True:
 3. اسکریپت را اجرا کنید:
 
    ```bash
-   python auto_withdrawal_bot.py
+   python main.py
    ```
 
 اسکریپت هر ساعت یک‌بار موجودی کیف پول را چک می‌کند و در صورت بیشتر بودن از 5 دلار، وجوه را منتقل می‌کند و یک اعلان می‌فرستد.
