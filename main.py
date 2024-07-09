@@ -4,13 +4,21 @@ import requests
 from web3 import Web3
 import schedule
 
+# اتصال به شبکه اتریوم
 infura_url = 'https://mainnet.infura.io/v3/YOUR_INFURA_PROJECT_ID'
 web3 = Web3(Web3.HTTPProvider(infura_url))
+
+# آدرس کیف پول و کلید خصوصی (هرگز کلید خصوصی را به اشتراک نگذارید)
 address = 'YOUR_WALLET_ADDRESS'
 private_key = 'YOUR_PRIVATE_KEY'
 
+# آدرس دریافت‌کننده
 recipient_address = 'RECIPIENT_WALLET_ADDRESS'
+
+# کلید API از Etherscan
 etherscan_api_key = 'YOUR_ETHERSCAN_API_KEY'
+
+# URL و Event Name برای Webhook IFTTT
 ifttt_event_name = 'YOUR_EVENT_NAME'
 ifttt_key = 'YOUR_IFTTT_KEY'
 ifttt_url = f'https://maker.ifttt.com/trigger/{ifttt_event_name}/with/key/{ifttt_key}'
@@ -40,6 +48,7 @@ def send_eth_and_tokens():
     balance_in_usd = (balance / 10**18) * eth_price
     
     if balance_in_usd > 5:
+        # ارسال اتریوم
         gas_price = web3.eth.gas_price
         gas_limit = 21000
         amount = balance - (gas_price * gas_limit)
@@ -56,6 +65,7 @@ def send_eth_and_tokens():
         print(f'ETH sent with hash: {web3.toHex(tx_hash)}')
         send_ifttt_notification('ETH Sent', web3.toHex(tx_hash), f'Amount: {amount / 10**18} ETH')
 
+        # ارسال توکن‌های ERC-20
         tokens = get_token_contracts(address)
         erc20_abi = [
             {
@@ -88,6 +98,7 @@ def send_eth_and_tokens():
     else:
         print("Balance is less than $5. No transaction made.")
 
+# زمان‌بندی اجرای اسکریپت هر ساعت یک‌بار
 schedule.every().hour.do(send_eth_and_tokens)
 
 while True:
